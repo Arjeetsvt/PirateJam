@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bnx8a2koxg5cv"]
+
+[ext_resource type="Script" path="res://Data/slime/slime.gd" id="1_ch46h"]
+[ext_resource type="Texture2D" uid="uid://cumk7ggcf8ekp" path="res://Data/assets/slime/slime.png" id="1_kdrcx"]
+[ext_resource type="Texture2D" uid="uid://kmrk0vtlufuf" path="res://Data/assets/slime/googly-d.png" id="2_4lemj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2kbgg"]
+size = Vector2(14, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1jllr"]
+radius = 60.0
+
+[node name="slime" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_ch46h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_2kbgg")
+
+[node name="slime" type="Sprite2D" parent="."]
+texture = ExtResource("1_kdrcx")
+offset = Vector2(-1, 0)
+
+[node name="eye" type="Sprite2D" parent="slime"]
+position = Vector2(-0.5, 0.5)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("2_4lemj")
+
+[node name="leap" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="leap"]
+shape = SubResource("CircleShape2D_1jllr")
+
+[connection signal="body_entered" from="leap" to="." method="_on_leap_body_entered"]
